@@ -1,0 +1,87 @@
+swagger: '2.0'
+info: {title: Risk Assessment Processes, description: Actions for supporting flow processing
+    Applications, version: '1.0'}
+host: your-api-hostname.azurewebsites.net
+basePath: /
+schemes: [https]
+consumes: []
+produces: []
+paths:
+  /api/ParseSmartSheetEmail:
+    post:
+      responses:
+        default:
+          description: default
+          schema:
+            type: object
+            properties:
+              county: {type: string, description: county}
+              district: {type: string, description: district}
+              group: {type: string, description: group}
+              submittor: {type: string, description: submittor}
+              approver: {type: string, description: approver}
+              attachments:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    filename: {type: string, description: filename}
+                    url: {type: string, description: url}
+                description: attachmentURLs
+      summary: Parse SmartSheet Risk Assessment Email
+      description: Takes the body of the risk assessment email, parses the content,
+        and returns the processed content as JSON
+      operationId: ParseSmartSheetEmail
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            emailBody: {type: string, description: emailBody, title: Content, default: EmailContent,
+              x-ms-visibility: important}
+          x-ms-visibility: important
+          required: [emailBody]
+        x-ms-visibility: important
+  /api/ParseAttachment:
+    post:
+      responses:
+        default:
+          description: default
+          schema:
+            type: object
+            properties:
+              section: {type: string, description: section, title: Group/Section/Activity}
+              date: {type: string, description: date, title: Completed Date}
+              author: {type: string, description: author, title: RA Author}
+              level: {type: string, description: level, title: RA Level}
+              status: {type: string, description: status, title: Processing Status}
+              risk-assessment:
+                type: boolean
+                description: risk-assessment
+                title: Is a Risk Assessment?
+                enum: ['', 'true', 'false']
+          headers:
+            'Content-Type:': {description: 'Content-Type:', type: string}
+      summary: Parse Attachment
+      description: Parses the file contents of an attachment to a RA and extracts
+        the needed details
+      operationId: ParseAttachment
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            fileContents: {type: string, description: fileContents, title: File Contents
+                (Base64 Encoded), x-ms-visibility: important}
+definitions: {}
+parameters: {}
+responses: {}
+securityDefinitions:
+  API Key: {type: apiKey, in: query, name: code}
+security:
+- API Key: []
+tags: []

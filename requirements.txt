@@ -1,0 +1,6 @@
+azure-functions
+beautifulsoup4
+requests
+python-docx
+pdfreader
+filetype
