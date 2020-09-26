@@ -39,7 +39,7 @@ Please see example-flow.png for a example flow usage.
 
 This has not been extensively tested, but appears to be working ok in production currently. Please raise any issues via GitHub.
 
-- Currently SmartSheet emails which notify multiple rows have been changed are unsupported.
+- ~~Currently SmartSheet emails which notify multiple rows have been changed are unsupported.~~ Fixed in v0.2. Note objects now returned in an array.
 
 ## License
 
@@ -64,23 +64,26 @@ Content-Type: application/json
 #### Response
 
 ```json
-{
-    "county": "My County",
-    "district": "My Distruct",
-    "group": "1st Scout Group",
-    "submittor": "gsl@1stscoutgroup.org.uk",
-    "approver": "dc@myscoutdistrict.org.uk",
-    "attachments": [
-        {
-            "filename": "COVID19 - Restart Risk Assessment- 1st Scout Group.docx",
-            "url": "https://app.smartsheet.com/b/download/att/1/"
-        },
-        {
-            "filename": "Additional Attachment.xlsx",
-            "url": "https://app.smartsheet.com/b/download/att/2/"
-        }
-    ]
-}
+[
+    {
+        "county": "My County",
+        "district": "My Distruct",
+        "group": "1st Scout Group",
+        "submittor": "gsl@1stscoutgroup.org.uk",
+        "approver": "dc@myscoutdistrict.org.uk",
+        "attachments": [
+            {
+                "filename": "COVID19 - Restart Risk Assessment- 1st Scout Group.docx",
+                "url": "https://app.smartsheet.com/b/download/att/1/"
+            },
+            {
+                "filename": "Additional Attachment.xlsx",
+                "url": "https://app.smartsheet.com/b/download/att/2/"
+            }
+        ]
+    }
+    { // Further objects //  }
+]
 ```
 
 ### ParseAttachment
